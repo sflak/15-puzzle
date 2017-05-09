@@ -57,12 +57,13 @@ var app = function() {
         }
         else{
             self.vue.board = randomArr;
+            
         }
 
     };
 
     self.setRed = function (el) {
-        return (el === 1) || (el === 3) || (el === 6) || (el == 8) ||
+        return (el === 1) || (el === 3) || (el === 6) || (el === 8) ||
             (el === 9) || (el === 11) || (el === 14);
     };
 
@@ -99,8 +100,8 @@ function randomPerm(array) {
 
         // And swap it with the current element.
         temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        Vue.set(array, currentIndex, array[randomIndex]);
+        Vue.set(array, randomIndex, temporaryValue);
     }
 
     return array;
