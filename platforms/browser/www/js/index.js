@@ -49,6 +49,14 @@ var app = function() {
         // Read the Wikipedia article.  If you just randomize,
         // the resulting puzzle may not be solvable.
     };
+    self.setRed = function (i, j) {
+        var index = (4*i+j) + 1;
+        // return( ((index < 5 && index > 0 || index > 8 && index < 13) && (index % 2 === 0))
+        //     || ( (index > 4 && index < 9) || (index > 12 && index < 16)) && (index % 2 === 1));
+        console.log("in set red: " + index);
+        return( (index > 0 && index < 5 || index > 8 && index < 13) && (index%2===1)
+        || ( (index > 4 && index < 9) || (index > 12 && index < 16)) && (index % 2 === 0));
+    };
 
     self.vue = new Vue({
         el: "#vue-div",
@@ -60,7 +68,8 @@ var app = function() {
         methods: {
             reset: self.reset,
             shuffle: self.shuffle,
-            scramble: self.scramble
+            scramble: self.scramble,
+            setRed: self.setRed
         }
 
     });
