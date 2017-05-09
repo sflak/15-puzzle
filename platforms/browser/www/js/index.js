@@ -42,20 +42,28 @@ var app = function() {
 
     self.shuffle = function(i, j) {
         // You need to implement this.
+
         console.log("Shuffle:" + i + ", " + j);
     };
 
     self.scramble = function() {
         // Read the Wikipedia article.  If you just randomize,
         // the resulting puzzle may not be solvable.
+        console.log("self.vue.board=" + self.vue.board);
+        var randomArr = randomPerm(self.vue.board);
+        if (!isSolvable(randomArr)){
+            console.log("trying again");
+            self.scramble();
+        }
+        else{
+            self.vue.board = randomArr;
+        }
+
     };
-    self.setRed = function (i, j) {
-        var index = (4*i+j) + 1;
-        // return( ((index < 5 && index > 0 || index > 8 && index < 13) && (index % 2 === 0))
-        //     || ( (index > 4 && index < 9) || (index > 12 && index < 16)) && (index % 2 === 1));
-        console.log("in set red: " + index);
-        return( (index > 0 && index < 5 || index > 8 && index < 13) && (index%2===1)
-        || ( (index > 4 && index < 9) || (index > 12 && index < 16)) && (index % 2 === 0));
+
+    self.setRed = function (el) {
+        return (el === 1) || (el === 3) || (el === 6) || (el == 8) ||
+            (el === 9) || (el === 11) || (el === 14);
     };
 
     self.vue = new Vue({
@@ -78,6 +86,59 @@ var app = function() {
 
     return self;
 };
+function randomPerm(array) {
+    console.log("array = :" + array);
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+function isSolvable(puzzle) {
+    var parity = 0;
+    var gridWidth = Math.sqrt(puzzle.length);
+    var row = 0; // the current row we are on
+    var blankRow = 0; // the row with the blank tile
+
+    for (var i = 0; i < puzzle.length; i++)
+    {
+        if (i % gridWidth === 0) { // advance to next row
+            row++;
+        }
+        if (puzzle[i] === 0) { // the blank tile
+            blankRow = row; // save the row on which encountered
+            continue;
+        }
+        for (var j = i + 1; j < puzzle.length; j++)
+        {
+            if (puzzle[i] > puzzle[j] && puzzle[j] !== 0)
+            {
+                parity++;
+            }
+        }
+    }
+
+    if (gridWidth % 2 === 0) { // even grid
+        if (blankRow % 2 === 0) { // blank on odd row; counting from bottom
+            return parity % 2 === 0;
+        } else { // blank on even row; counting from bottom
+            return parity % 2 !== 0;
+        }
+    } else { // odd grid
+        return parity % 2 === 0;
+    }
+}
 
 var APP = null;
 
