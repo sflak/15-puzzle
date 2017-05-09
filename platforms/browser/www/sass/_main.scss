@@ -2,19 +2,38 @@
   color: $clrHilight;
 }
 .app {
-  margin: 10px;
+  .title{
+    margin: 40px auto 30px auto;
+    font-size: 40px;
+    font-family: Helvetica, sans-serif;
+  }
   .topbar {
     // border-bottom: 1px solid $clrBorders;
   }
+  .container {
+    width: 505px;
+    height: 505px;
+    //margin: 10px auto 10px auto;
+  }
   .chessboard{
     table {
-      width: 100%;
+      width: 500px;
+      height: 500px;
       td {
         padding: 10px;
         border: 2px solid black;
       }
     }
-    margin: 20px;
+    margin: 10px auto 10px auto;
     border: 3px solid black;
   }
+  .resetbutton {
+    width: 100%;
+    margin: 40px auto 10px auto;
+  }
+
 }
+
+
+
+

@@ -45,7 +45,7 @@
     <body>
 
     <div id="vue-div" class="app" style="display:none">
-
+        <h1 class="center title">15 Puzzle</h1>
         <div class="container chessboard">
             <table>
                 <tr v-for="i in [0, 1, 2, 3]">
@@ -56,7 +56,7 @@
             </table>
 
         </div>
-        <div class="container center resetbutton">
+        <div class="center resetbutton">
             <button v-on:click="reset">Reset</button>
             <button v-on:click="scramble">Scramble</button>
         </div>
