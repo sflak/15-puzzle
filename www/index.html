@@ -53,7 +53,7 @@
                         v-on:click="shuffle(i,j)"
                         v-bind:class="{red: setRed(board[4*i + j]), black: board[4*i+j] == 0}"
                         class="center">
-                        (${i}, ${j}): ${board[4*i + j]}
+                         <h2 v-bind:class="{blackText: board[4*i+j] == 0}">${board[4*i + j]}</h2>
                     </td>
                 </tr>
             </table>

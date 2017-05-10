@@ -41,9 +41,72 @@ var app = function() {
     };
 
     self.shuffle = function(i, j) {
-        // You need to implement this.
+        var index = 4*i+j;
+        var switchWith = [];
+        var new_i;
+        var new_j;
+        var newIndex;
+        // if the 0 square is touched, do nothing
+        if(self.vue.board[index] === 0){ return; }
+
+        if(self.swapOk(i, j)){
+            console.log("swap!");
+            // Get i and j of 0
+            switchWith = self.zeroIndex(i, j);
+            new_i = switchWith[0];
+            new_j = switchWith[1];
+            newIndex = 4*new_i+new_j;
+
+            console.log("(i,j) of 0 = (" + new_i+ "," + new_j + ")");
+
+            // Swtich values at indices
+            tempVal = self.vue.board[index];
+            Vue.set(self.vue.board, index, self.vue.board[newIndex]);
+            Vue.set(self.vue.board, newIndex, tempVal);
+
+        }
+        else{
+            console.log("no swap!");
+            return;
+        }
+
 
         console.log("Shuffle:" + i + ", " + j);
+    };
+    self.swapOk = function(i, j) {
+        // Get index values of squares next to clicked square
+        var left = 4*i+(j-1);
+        var above = 4*(i-1)+j;
+        var right = 4*i+(j+1);
+        var below = 4*(i+1)+j;
+
+        return (self.vue.board[left] === 0 || self.vue.board[above] === 0
+        || self.vue.board[right] === 0 || self.vue.board[below] === 0);
+    };
+
+    // value at i and j must be swappable with 0
+    self.zeroIndex = function(i, j) {
+        var indices = [];
+        var left = 4*i+(j-1);
+        var above = 4*(i-1)+j;
+        var right = 4*i+(j+1);
+        var below = 4*(i+1)+j;
+
+        if(self.vue.board[left] === 0){
+            indices[0] = i;
+            indices[1] = j-1;
+        }else if(self.vue.board[above] === 0){
+            indices[0] = i-1;
+            indices[1] = j;
+        }else if(self.vue.board[right] === 0){
+            indices[0] = i;
+            indices[1] = j+1;
+        }else if( self.vue.board[below] === 0){
+            indices[0] = i+1;
+            indices[1] = j;
+        }
+
+        return indices;
     };
 
     self.scramble = function() {
@@ -61,6 +124,7 @@ var app = function() {
         }
 
     };
+
 
     self.setRed = function (el) {
         return (el === 1) || (el === 3) || (el === 6) || (el === 8) ||
@@ -106,6 +170,7 @@ function randomPerm(array) {
 
     return array;
 }
+
 function isSolvable(puzzle) {
     var parity = 0;
     var gridWidth = Math.sqrt(puzzle.length);

@@ -29,7 +29,11 @@
   padding: 10px;
   border: 2px solid black;
 }
-/* line 30, ../sass/_main.scss */
+/* line 26, ../sass/_main.scss */
+.app .chessboard table .blackText {
+  color: black;
+}
+/* line 33, ../sass/_main.scss */
 .app .resetbutton {
   width: 100%;
   margin: 40px auto 10px auto;
