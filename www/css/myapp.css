@@ -28,12 +28,13 @@
 .app .chessboard table td {
   padding: 10px;
   border: 2px solid black;
+  width: 25%;
 }
-/* line 26, ../sass/_main.scss */
+/* line 27, ../sass/_main.scss */
 .app .chessboard table .blackText {
   color: black;
 }
-/* line 33, ../sass/_main.scss */
+/* line 34, ../sass/_main.scss */
 .app .resetbutton {
   width: 100%;
   margin: 40px auto 10px auto;
